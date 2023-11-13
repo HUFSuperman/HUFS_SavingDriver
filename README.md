@@ -10,3 +10,6 @@
 - assault_split.ipynb : train.csv에서 폭행 데이터만 추출
 
 - EDA.ipynb : EDA
+
+
+운전자 폭행 탐지를 위한 TSN 경량 CNN 아키텍처 도입 
