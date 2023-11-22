@@ -7,7 +7,7 @@ Lightweight CNN Architecture-Based Temporal Segment Network Technique for Driver
 
 Recently, the incidence of assaults during driving has been on the rise, with assaults by intoxicated individuals occurring predominantly at late hours, making rapid response challenging. To address this issue, our study developed a lightweight Convolutional Neural Network (CNN) based Temporal Segment Network (TSN) model capable of swiftly and accurately detecting driver assault situations by passengers other than the driver. This model is designed to operate efficiently within the constrained resources of an in-vehicle Driver Monitoring System (DMS). We improved upon the existing ResNet-based TSN model by incorporating a lightweight CNN architecture that maintains high performance under resource constraints. The technique proposed in this study is expected to contribute to rapid response and prevention of dangerous situations that can occur while driving.
 
-
+핵심어: Temporal Segment Network, Lightweight CNN Architecture, 3D Video RGB based Violence Recognition, Abnormal Behavior 
 
 
 데이터 사용 설명서 : convert -> assault_split -> EDA 순으로 실행
