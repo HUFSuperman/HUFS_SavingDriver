@@ -11,7 +11,7 @@ model = dict(
     cls_head=dict(
         type='TSNHead',
         num_classes=2, 
-        in_channels=2048,  # 1280
+        in_channels=1280,  # 1280
         spatial_type='avg',
         consensus=dict(type='AvgConsensus', dim=1),
         dropout_ratio=0.4,
