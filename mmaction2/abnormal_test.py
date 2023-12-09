@@ -45,22 +45,36 @@ Log_Format = "%(levelname)s %(asctime)s - %(message)s"
 logging.basicConfig(filename="abnormal_logfile.log", filemode="w", format=Log_Format, level=logging.DEBUG)
 logger = logging.getLogger()
 
+
+
+
+# 본인의 모델 경로 넣기 
 cfg = Config.fromfile('./configs/recognition/tsn/juneyong_backbones/tsn_moblieone_s4_1x1x8_20e_Dassult.py')
 # cfg.dataset_type = 'VideoDataset'
 cfg.dataset_type = 'RawframeDataset'
-cfg.data_root = './datasets/allData/NewVideo/'
+cfg.data_root = './datasets/allData/Img_AIhub/'
 # cfg.test_dataloader.dataset.type = 'VideoDataset'
 cfg.test_dataloader.dataset.type = 'RawframeDataset'
-cfg.test_dataloader.dataset.ann_file = './datasets/allData/TL_val.txt'
+cfg.test_dataloader.dataset.ann_file = './datasets/allData/TL_test.txt'
 cfg.test_dataloader.dataset.data_prefix.video = './datasets/abnormal_data_test'
 cfg.setdefault('omnisource', False)
 # cfg.model.cls_head.num_classes = 2
 # cfg.load_from = 'abnormal_model.pth'
+
+
+
+
+# 본인의 work_dirs본인의 모델로 경로 변경하기 .pth 경로
 cfg.load_from = './work_dirs/tsn_moblieone_s4_1x1x8_20e_Dassult/best_acc_top1_epoch_1.pth'
+# 본인의 work_dirs본인의 모델로 경로 변경하기  폴더 경로
 cfg.work_dir = './work_dirs/20231128_TL'
+
+
+
+
 cfg.test_dataloader.videos_per_gpu = 12
 cfg.optim_wrapper.optimizer.lr = cfg.optim_wrapper.optimizer.lr / 8 / 16
-cfg.total_epochs = 50
+cfg.total_epochs = 20
 cfg.default_hooks.checkpoint.interval = 5
 cfg.default_hooks.logger.interval = 5
 cfg.seed = 0
@@ -70,11 +84,16 @@ cfg.evaluation.save_best='auto'
 
 # Setup a checkpoint file to load
 # checkpoint = 'abnormal_model.pth'
-checkpoint ='./work_dirs/tsn_moblieone_s4_1x1x8_20e_Dassult/best_acc_top1_epoch_1.pth'
-model = init_recognizer(cfg, checkpoint, device='cuda:0')
-csv_filename = './datasets/TL_Video.csv'
-res_path = './datasets/allData/NewVideo/'
 
+
+
+# 본인의 해당하는 모델을 work_dirs에서 찾아서 경로 넣기!!!!!!!!!!!!!!!!!!!!!
+checkpoint ='./work_dirs/tsn_moblieone_s4_1x1x8_20e_Dassult/best_acc_top1_epoch_1.pth'
+
+
+model = init_recognizer(cfg, checkpoint, device='cuda:0')
+csv_filename = './datasets/TL_Img_Folders.csv'
+res_path = './datasets/allData/Img_AIhub/'
 # Read video paths from CSV file
 df = pd.read_csv(csv_filename)
 file_list_path = df['Video Path'].tolist()
@@ -114,10 +133,6 @@ for file in tqdm(file_list_path):
     
 
     i += 1
-
-    #Break the loop after processing 100 videos
-    if i > 20:
-        break
 
     
     
