@@ -43,20 +43,33 @@ val_pipeline = [
     dict(type='FormatShape', input_format='NCHW'),
     dict(type='PackActionInputs'),
 ]
+# test_pipeline = [
+#     dict(
+#         type='SampleFrames',
+#         clip_len=1,
+#         frame_interval=1,
+#         num_clips=8,
+#         test_mode=True),
+#     dict(type= 'RawFrameDecode'),
+#     dict(type='Resize', scale=(-1, 256)),
+#     dict(type='TenCrop', crop_size=224),
+#     dict(type='FormatShape', input_format='NCHW'),
+#     dict(type='PackActionInputs')
+# ]
 test_pipeline = [
+    dict(type='DecordInit'),
     dict(
         type='SampleFrames',
         clip_len=1,
         frame_interval=1,
         num_clips=8,
         test_mode=True),
-    dict(type= 'RawFrameDecode'),
+    dict(type='DecordDecode'),
     dict(type='Resize', scale=(-1, 256)),
-    dict(type='TenCrop', crop_size=224),
+    dict(type='CenterCrop', crop_size=224),
     dict(type='FormatShape', input_format='NCHW'),
     dict(type='PackActionInputs')
 ]
-
 train_dataloader = dict(
     batch_size=8,
     num_workers=2,

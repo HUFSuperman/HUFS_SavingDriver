@@ -94,7 +94,7 @@ def inference_recognizer(model: nn.Module,
     if input_flag == 'dict':
         data = video
     if input_flag == 'video':
-        data = dict(filename=video, label=-1, start_index=0, modality='RGB')
+        data = dict(filename=video ,label=-1, start_index=0, modality='RGB')
     if input_flag == 'audio':
         data = dict(
             audio_path=video,

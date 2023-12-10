@@ -40,19 +40,19 @@ if __name__ == '__main__':
         line_arr = line.split("\t")
         # print(line_arr)
         # 'Assault Detected' is labeled as '0' (abnormal), 'No Assault Detected' as '1' (normal)
-        gt = 'assault' if line_arr[2].strip() == 'assault' else 'non_assault'
-        predict = 'assault' if line_arr[3].strip() == 'assault' else 'non_assault'
+        gt = 'assault' if line_arr[2].strip() == 'assault' else 'normal'
+        predict = 'assault' if line_arr[3].strip() == 'assault' else 'normal'
         print(gt, predict)
         y_true.append(gt)
         y_pred.append(predict)
     f.close()
 
     # Update label list to reflect the new labeling scheme
-    label_list = ['assault', 'non_assault'] # 0: Assault Detected (abnormal), 1: No Assault Detected (normal)
+    label_list = ['assault', 'normal'] # 0: Assault Detected (abnormal), 1: No Assault Detected (normal)
     
     print(confusion_matrix(y_true, y_pred, labels=label_list))
     print(y_true, y_pred)
-    report = classification_report(y_true, y_pred, target_names=['assault', 'non_assault'])
+    report = classification_report(y_true, y_pred, target_names=['assault', 'normal'])
     print(report)
 
     print("Precision", metrics.precision_score(y_true, y_pred, average="weighted", labels=label_list))
