@@ -49,7 +49,7 @@ logger = logging.getLogger()
 
 
 # 본인의 모델 경로 넣기 
-cfg = Config.fromfile('./configs/recognition/tsn/juneyong_backbones/tsn_moblieone_s4_1x1x8_20e_Dassult.py')
+cfg = Config.fromfile('./configs/recognition/tsn/juneyong_backbones/tsn_moblieone_s1_1x1x8_20e_Dassult.py')
 # cfg.dataset_type = 'VideoDataset'
 cfg.dataset_type = 'RawframeDataset'
 cfg.data_root = './datasets/allData/Img_AIhub/'
@@ -65,9 +65,9 @@ cfg.setdefault('omnisource', False)
 
 
 # 본인의 work_dirs본인의 모델로 경로 변경하기 .pth 경로
-cfg.load_from = './work_dirs/tsn_moblieone_s4_1x1x8_20e_Dassult/best_acc_top1_epoch_1.pth'
+cfg.load_from = './work_dirs/tsn_moblieone_s1_1x1x8_20e_Dassult/best_acc_top1_epoch_1.pth'
 # 본인의 work_dirs본인의 모델로 경로 변경하기  폴더 경로
-cfg.work_dir = './work_dirs/20231128_TL'
+cfg.work_dir = './work_dirs/20231210_TL'
 
 
 
@@ -85,18 +85,20 @@ cfg.evaluation.save_best='auto'
 # Setup a checkpoint file to load
 # checkpoint = 'abnormal_model.pth'
 
-
-
 # 본인의 해당하는 모델을 work_dirs에서 찾아서 경로 넣기!!!!!!!!!!!!!!!!!!!!!
-checkpoint ='./work_dirs/tsn_moblieone_s4_1x1x8_20e_Dassult/best_acc_top1_epoch_1.pth'
+checkpoint ='./work_dirs/tsn_moblieone_s1_1x1x8_20e_Dassult/best_acc_top1_epoch_1.pth'
+
 
 
 model = init_recognizer(cfg, checkpoint, device='cuda:0')
-csv_filename = './datasets/TL_Img_Folders.csv'
+csv_filename = './datasets/TL_Img_Folders_new.csv'
 res_path = './datasets/allData/Img_AIhub/'
 # Read video paths from CSV file
 df = pd.read_csv(csv_filename)
-file_list_path = df['Video Path'].tolist()
+
+file_list_path = df['folder_path'].tolist()
+# file_total_frames = df['total_frames'].tolist()
+# file_list_path = df.tolist()
 #0(normal 폭행아님 false), 1(abnormal 폭행임 true) 
 hand_pose = {"non_assault": "0", "assault": "1"}
 
@@ -115,6 +117,7 @@ for file in tqdm(file_list_path):
             print("ground truth : ", pose)
             break
     video = file
+    # total_frames="8"
     label = './datasets/abnormal_test.txt'
     results = inference_recognizer(model, video)
   
