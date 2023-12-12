@@ -1,4 +1,5 @@
-# HUFS_SavingDriver
+# MMaction2_TSN_Lightweight_CNN_Architecture
+
 
 [HUFS_DeapLearning_Team2_Notion](https://j8n17.notion.site/HUFS-DL-2-f94647f9b8d642a9bce8c5533282c3e3?pvs=4)
 
