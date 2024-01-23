@@ -7,7 +7,6 @@ model = dict(
     backbone=dict(
         type='mmpretrain.MobileOne',
         arch='s0',
-        # out_indices=(3, ),
         init_cfg=dict(
             type='Pretrained', checkpoint=checkpoint, prefix='backbone'),
         # in_channels=2 * clip_len,  # ``in_channels`` should be 2 * clip_len
@@ -21,7 +20,6 @@ model = dict(
         dropout_ratio=0.4,
         init_std=0.01,
         average_clips='prob'),
-    
     data_preprocessor=dict(
         type='ActionDataPreprocessor',
         mean=[123.675, 116.28, 103.53],
